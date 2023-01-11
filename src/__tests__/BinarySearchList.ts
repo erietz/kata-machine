@@ -9,5 +9,10 @@ test("binary search array", function() {
     expect(binary_fn(foo, 69421)).toEqual(false);
     expect(binary_fn(foo, 1)).toEqual(true);
     expect(binary_fn(foo, 0)).toEqual(false);
+
+    // for (const val of foo) {
+    //   expect(binary_fn(foo, val)).toEqual(true);
+    // }
+
 });
 
