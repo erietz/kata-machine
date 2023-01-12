@@ -1,23 +1,22 @@
 export default function two_crystal_balls(breaks: boolean[]): number {
 
-  const calcStory = (i: number) => i * Math.floor(Math.sqrt(breaks.length));
+  const jmpAmount = Math.floor(Math.sqrt(breaks.length));
 
+  let story = jmpAmount;
   let broke = false;
-  let story;
-  let i = 0;
-  do {
-    story = calcStory(i);
+  for (; story < breaks.length; story += jmpAmount) {
     if (breaks[story]) {
       broke = true;
-      break;
+      break
     }
-    i++;
-  } while (story < breaks.length)
+  }
+
+  story -= jmpAmount;
 
   if (broke) {
-    for (let j = calcStory(i - 1); j < calcStory(i); j++) {
-      if (breaks[j]) {
-        return j;
+    for (let i = 0; i < jmpAmount; i++) {
+      if (breaks[story + i]) {
+        return story + i;
       }
     }
   }
