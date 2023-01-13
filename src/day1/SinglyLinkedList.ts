@@ -70,7 +70,7 @@ export default class SinglyLinkedList<T> {
 
     remove(item: T): T | undefined {
         if (!this._head || !this._tail) {
-            throw new Error("Cannot remove from empty list");
+            return;
         }
 
         // remove head node
@@ -101,13 +101,9 @@ export default class SinglyLinkedList<T> {
     }
 
     get(idx: number): T | undefined {
-        if (idx < 0 || idx >= this.length) {
-            return;
-        }
-
         let curr = this._head;
-        for (let i = 0; i < idx; i++, curr = curr!.next) { }
-        return curr!.value;
+        for (let i = 0; i < idx && curr; i++, curr = curr.next) { }
+        return curr?.value;
     }
 
     removeAt(idx: number): T | undefined {
