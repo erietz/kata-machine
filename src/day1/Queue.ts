@@ -10,10 +10,10 @@ export default class Queue<T> {
     enqueue(item: T): void {
         const node: ListNode<T> = { value: item };
 
-        if (this.length === 0) {
+        if (!this._tail) {
             this._head = this._tail = node;
         } else {
-            this._tail!.next = node;
+            this._tail.next = node;
             this._tail = node;
         }
 
@@ -21,14 +21,19 @@ export default class Queue<T> {
     }
 
     deque(): T | undefined {
-        if (this.length === 0) {
-            return
+        if (!this._head) {
+            return undefined;
         }
 
         const head = this._head;
-        this._head = this._head!.next;
+        this._head = this._head.next;
         this.length--;
-        return head!.value;
+
+        if (this.length === 0) {
+            this._tail = undefined;
+        }
+
+        return head.value;
     }
 
     peek(): T | undefined {

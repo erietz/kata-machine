@@ -58,10 +58,10 @@ export default class SinglyLinkedList<T> {
     append(item: T): void {
         const node: ListNode<T> = { value: item };
 
-        if (this.length === 0) {
+        if (!this._tail) {
             this._head = this._tail = node;
         } else {
-            this._tail!.next = node;
+            this._tail.next = node;
             this._tail = node;
         }
 
@@ -69,14 +69,14 @@ export default class SinglyLinkedList<T> {
     }
 
     remove(item: T): T | undefined {
-        if (this.length === 0 ) {
+        if (!this._head || !this._tail) {
             throw new Error("Cannot remove from empty list");
         }
 
         // remove head node
-        if (this._head!.value === item) {
-            let tmp = this._head!.value;
-            this._head = this._head!.next;
+        if (this._head.value === item) {
+            let tmp = this._head.value;
+            this._head = this._head.next;
             this.length--;
             return tmp;
         }
