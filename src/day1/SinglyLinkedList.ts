@@ -1,23 +1,13 @@
-class Node<T> implements ListNode<T> {
-    public value: T;
-    next?: ListNode<T>;
-
-    constructor(value: T) {
-        this.value = value;
-    }
-}
-
-
 export default class SinglyLinkedList<T> {
     public length: number;
-    private _head?: Node<T>;
-    private _tail?: Node<T>;
+    private _head?: ListNode<T>;
+    private _tail?: ListNode<T>;
 
     constructor() {
         this.length = 0;
     }
 
-    private getPredecessor(item: T): Node<T> | undefined {
+    private getPredecessor(item: T): ListNode<T> | undefined {
         let curr = this._head;
         while (curr && curr.next) {
             if (curr.next.value === item) {
@@ -29,7 +19,7 @@ export default class SinglyLinkedList<T> {
     }
 
     prepend(item: T): void {
-        const node = new Node(item);
+        const node: ListNode<T> = { value: item };
 
         if (this.length === 0) {
             this._head = this._tail = node;
@@ -59,14 +49,14 @@ export default class SinglyLinkedList<T> {
         let curr = this._head;
         for (let i = 0; i < idx; i++, curr = curr!.next) { }
 
-        const node = new Node(item);
+        const node: ListNode<T> = { value: item };
         node.next = curr!.next;
         curr!.next = node;
         this.length++;
     }
 
     append(item: T): void {
-        const node = new Node(item);
+        const node: ListNode<T> = { value: item };
 
         if (this.length === 0) {
             this._head = this._tail = node;
