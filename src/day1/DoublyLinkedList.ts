@@ -3,10 +3,41 @@ export default class DoublyLinkedList<T> {
     private _head?: ListNode<T>;
     private _tail?: ListNode<T>;
 
-
-
     constructor() {
         this.length = 0;
+    }
+
+    private removeNode(node: ListNode<T> | undefined): T | undefined {
+        // item not in list
+        if (!node) {
+            return;
+        }
+
+        const returnValue = node.value;
+
+        // remove only item in list
+        if (!node.next && !node.prev) {
+            this._head = this._tail = undefined;
+        }
+
+        // remove head
+        if (!node.prev) {
+            this._head = node.next;
+        }
+
+        // remove tail
+        if (!node.next) {
+            this._tail = node.prev;
+        }
+
+        // remove from middle
+        if (node.prev && node.next) {
+            node.prev.next = node.next
+            node.next.prev = node.prev;
+        }
+
+        this.length--;
+        return returnValue;
     }
 
     prepend(item: T): void {
@@ -70,39 +101,6 @@ export default class DoublyLinkedList<T> {
             curr = curr.next;
         }
         return undefined;
-    }
-
-    private removeNode(node: ListNode<T> | undefined): T | undefined {
-        // item not in list
-        if (!node) {
-            return;
-        }
-
-        const returnValue = node.value;
-
-        // remove only item in list
-        if (!node.next && !node.prev) {
-            this._head = this._tail = undefined;
-        }
-
-        // remove head
-        if (!node.prev) {
-            this._head = node.next;
-        }
-
-        // remove tail
-        if (!node.next) {
-            this._tail = node.prev;
-        }
-
-        // remove from middle
-        if (node.prev && node.next) {
-            node.prev.next = node.next
-            node.next.prev = node.prev;
-        }
-
-        this.length--;
-        return returnValue;
     }
 
     get(idx: number): T | undefined {
